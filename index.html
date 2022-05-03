@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>The State of Unions</title>
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.0/dist/leaflet.css"/>
+	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css">
+  <link href='https://fonts.googleapis.com/css?family=Raleway' rel='stylesheet'>
+
+    <style>
+
+
+  html, body, #map {position: fixed; width: 100%; height: 100%; margin: 0; background: #fff; }
+
+  .sidebar {
+    height: 100%;
+    width: 450px;
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    background-color: #FFFFFF;
+    overflow-x: hidden;
+    padding: 6px 8px 6px 16px;
+    text-decoration: none;
+    font-size: 25px;
+    display: block;
+    font-family: "Raleway";
+
+  }
+  .sidebar p{
+    padding: 6px 8px 6px 16px;
+    text-decoration: none;
+    font-size: 20px;
+    display: block;
+    font-family: "Raleway";
+
+  }
+
+  @media screen and (max-height: 450px) {
+    .sidebar {padding-top: 15px;}
+    .sidebar a {font-size: 18px;}
+  }
+
+  .sidebar h1 {
+    font-size: 33px;
+    font-family: "Raleway";
+    color: #111111;
+    letter-spacing: .04em;
+    padding: 6px 8px 6px 16px;
+    border-radius: 3px;
+    z-index: 800;
+    opacity: 75%;
+  }
+
+  .sidebar a:hover {
+    color: #808080;
+    font-family: "Raleway";
+    letter-spacing: .00001em;
+    font-size: 25px;
+    padding: 6px 8px 6px 16px;
+    border-radius: 3px;
+    z-index: 800;
+  }
+
+  .sidebar h2{
+    color: #808080;
+    font-family: "Raleway";
+    letter-spacing: .00001em;
+    font-size: 25px;
+    padding: 6px 8px 6px 16px;
+    border-radius: 3px;
+    z-index: 800;
+  }
+
+
+  .legend {
+
+    font-family:'Raleway', sans-serif;
+    letter-spacing:2px;
+    line-height: 40px;
+    font-size: 16px;
+    width: 300px;
+    color: #333333;
+    padding: 6px 8px;
+    background: white;
+    background: rgba(255,255,255);
+    box-shadow: 0 0 15px rgba(0,0,0,0.2);
+    border-radius: 1px;
+}
+
+.legend i {
+    width: 20px;
+    height: 20px;
+    float: left;
+    margin-right: 8px;
+    opacity: 0.9;
+}
+
+.legend img {
+
+    width: 16px;
+    height: 16px;
+    margin-right: 3px;
+    float: left;
+}
+
+.legend p {
+
+    font-size: 14px;
+    line-height: 25px;
+    margin: 0;
+}
+
+.Popup {
+  background-color: #555;
+  color: white;
+  padding: 16px 20px;
+  border: none;
+  cursor: pointer;
+  opacity: 0.8;
+  position: fixed;
+  bottom: 23px;
+  right: 28px;
+  width: 280px;
+}
+    </style>
+	<script src="https://unpkg.com/leaflet@1.7.0/dist/leaflet.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet-ajax/2.1.0/leaflet.ajax.min.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/chroma-js/1.3.4/chroma.min.js"></script>
+
+</head>
+<body>
+<!-- Our web map and content will go here -->
+<div class="sidebar">
+
+<h1>The State of Unions</h1>
+
+<h2><a href="https://www.vox.com/recode/22825850/starbucks-union-first-organizing-vote-nlrb"style="text-decoration:none;color:gray"> Starbucks </a></h2>
+
+<p> In December of 2021 first Starbucks votes to unionize in in Buffalo. They will begin to negotiate a contract for better pay, benefits and working conditions</p>
+
+<h2><a href="https://www.npr.org/2022/04/02/1090474725/what-amazons-1st-union-means-for-organized-labor"style="text-decoration:none;color:gray"> Amazon </a></h2>
+<p> In April of 2022 the first Amazon Warehouse unionizes in Staten Island despite union busting and by the company.</p>
+
+<h2><a href="https://www.npr.org/2021/12/21/1066326419/kelloggs-union-members-ratify-a-new-contract-ending-a-nearly-3-month-strike"style="text-decoration:none;color:gray">Kellogs</a></h2>
+<p>Kellog's workers strike for 11 hours after a 5 year contract expired. The strike ended in October of 2021 when unionized workers voted on a 5 year contract.</p>
+
+<h2><a href="https://www.bloomberg.com/news/articles/2021-10-14/deere-workers-strike-amid-labor-shortages-supply-chain-chaos"style="text-decoration:none;color:gray">John Deere</a></h2>
+
+<p> John Deere workers go on strike at midnight for a month after their contract expired. They negotiated for higher wages and better benefits as the company has seen a 38% increase in profits over the last 30 years. An agreement was reached for a 10% pay increase.</p>
+
+<p><b>This map is inspired by </b><a href="https://www.bloomberg.com/news/articles/2021-10-14/deere-workers-strike-amid-labor-shortages-supply-chain-chaos"style="text-decoration:none;color:gray">"US Labor Unions are Having a Moment"</a> from <i>TIME Magazine</i></p>
+
+</div>
+
+<div id="map"></div>
+<script>
+  // 1. Create a map object.
+ var mymap = L.map('map', {
+     center: [37.03306313157895, -105.67471754901713], //note that we've centered the map to downtown AVL
+     zoom: 4.4, //this line adjusts the starting zoom level of the map
+     maxZoom: 18,//this line sets the maximum zoom level
+     minZoom: 0,//this line sets the minimum zoom level
+     detectRetina: true // detect whether the screen is high resolution or not.
+ });
+
+ // 2. Add a base map.
+ L.tileLayer('http://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png').addTo(mymap);
+
+ // 3. Add Airbnb GeoJSON Data
+// Null variable that will hold Airbnb data
+var unionlocations = null;
+// add several extra spaces here.
+//steps 4, 5, etc. will be inserted in this line location.
+// Get GeoJSON and put it on the map when it loads
+// Make sure you have the correct directory path below
+// You can see we're also adding attribution information for our data sources
+// We will also add lines of code around this airbnb_listings object as we adjust the style of the symbols
+//Make sure and density your authorname in the attribute information
+
+// 4. build up a set of colors from colorbrewer's dark2 category
+var colors = chroma.scale('Dark2').mode('lch').colors(3);
+
+// 5. dynamically append style classes to this page. The style classes will be used to shade the markers.
+// We can use a for loop to do this.
+for (i = 0; i < 3; i++) {
+    $('head').append($("<style> .marker-color-" + (i + 1).toString() + " { color: " + colors[i] + "; font-size: 15px; text-shadow: 0 0 3px #ffffff;} </style>"));
+}
+
+unionlocations = L.geoJson.ajax("Assets/unionizationlocations.geojson",{
+
+  // assign a function to the onEachFeature parameter of the airbnb_listings object.
+  // Then each (point) feature will have a popup window.
+  // The content of the popup window is the value of `property_t` from the attribute table
+  onEachFeature: function (feature, layer) {
+      layer.bindPopup(feature.properties.description);
+  },
+
+  pointToLayer: function(feature, latlng) {
+      var id = 0;
+      if (feature.properties.property_t == "Entire house") { id = 0; }
+      else if (feature.properties.property_t == "Private room in house")  { id = 1; }
+      else { id = 2;} // All other property types from attribute table
+      return L.marker(latlng, {icon: L.divIcon({className: 'fas fa-fist-raised marker-color-' + (id + 1).toString() })});
+  },
+    attribution: 'Uninoization Statistics: Department of Labor| Location of Unions and Strikes | Base Map &copy; CartoDB | Map Author: Meredith Maiken'
+}).addTo(mymap);
+
+// 6. Set function for color ramp
+colors = chroma.scale('Blues').colors(4); //we'll use 5 classes of purples
+
+// this function manually defines your choropleth classification system
+//so you'll need to figure out which break points you'd like to use
+//based on the data distribution
+//this equal interval classification with 5 classes, takes the range of the
+//data (133) and divides it by 5, to show there are intervals of 27 per class
+//so...
+function setColor(density) {
+    var id = 0;
+    if (density > 106) { id = 4; } //133-27=106:highest fifth class
+    else if (density >= 0.7 && density <= 2.8) { id = 3; } //106-27=79:4thclass
+    else if (density >= 0.1 && density <= 0.6) { id = 2; } //79-27=52:3rdclass
+    else if (density >= -1.7 &&  density <= -0.1) { id = 1; } //52-27=25:2ndclass
+    else  { id = 0; } //no data
+    return colors[id];
+}
+
+function style(feature) {
+    return {
+        fillColor: setColor(feature.properties.unionstatistics_change),
+        fillOpacity: 0.4,
+        weight: 2,
+        opacity: 1,
+        color: '#b4b4b4',
+        dashArray: '4'
+    };
+}
+
+L.geoJson.ajax("Assets/unionstatistics.geojson", {
+    style: style
+}).addTo(mymap);
+
+// 9. Create Leaflet Control Object for Legend
+var legend = L.control({position: 'bottomright'});
+
+// 10. Function that runs when legend is added to map
+legend.onAdd = function () {
+
+    // Create Div Element and Populate it with HTML
+    var div = L.DomUtil.create('div', 'legend');
+    //this line creates a title for the choropleth part of the legend
+    div.innerHTML += '<b>Change in Share of Workforce Unionized 2018-19 </b><br />';
+    //notice the class breaks entered at the end of the next 5 lines
+    //the colors specify the shade of purple that we used to do the polygon shading
+
+    div.innerHTML += '<i style="background: ' + colors[3] + '; opacity: 0.5"></i><p>0.7% - 2.8%</p>';
+    div.innerHTML += '<i style="background: ' + colors[2] + '; opacity: 0.5"></i><p>0.1% - 0.6%</p>';
+    div.innerHTML += '<i style="background: ' + colors[1] + '; opacity: 0.5"></i><p>Negative or No Change</p>';
+
+    //this line provides the legend title for the airbnb colored symbols
+
+    //the next 3 lines call the airbnb icon along with its proper color
+    //notice the names of the Airbnb property types listed within the <p> tags at the end of the lines
+    div.innerHTML += '<i class="fas fa-fist-raised marker-color-3"></i><p>Unionization or Strike</p>';
+    // Return the Legend div containing the HTML content
+    return div;
+};
+
+// 11. Add a legend to map
+legend.addTo(mymap);
+
+// 12. Add a scale bar to map
+L.control.scale({position: 'bottomleft'}).addTo(mymap);
+
+</script>
+
+</body>
+</html>
