@@ -211,12 +211,7 @@ unionlocations = L.geoJson.ajax("Assets/unionizationlocations.geojson",{
 // 6. Set function for color ramp
 colors = chroma.scale('Blues').colors(4); //we'll use 5 classes of purples
 
-// this function manually defines your choropleth classification system
-//so you'll need to figure out which break points you'd like to use
-//based on the data distribution
-//this equal interval classification with 5 classes, takes the range of the
-//data (133) and divides it by 5, to show there are intervals of 27 per class
-//so...
+
 function setColor(density) {
     var id = 0;
     if (density > 106) { id = 4; } //133-27=106:highest fifth class
@@ -242,36 +237,32 @@ L.geoJson.ajax("Assets/unionstatistics.geojson", {
     style: style
 }).addTo(mymap);
 
-// 9. Create Leaflet Control Object for Legend
+
 var legend = L.control({position: 'bottomright'});
 
-// 10. Function that runs when legend is added to map
 legend.onAdd = function () {
 
-    // Create Div Element and Populate it with HTML
+   
     var div = L.DomUtil.create('div', 'legend');
-    //this line creates a title for the choropleth part of the legend
+   
     div.innerHTML += '<b>Change in Share of Workforce Unionized 2018-19 </b><br />';
-    //notice the class breaks entered at the end of the next 5 lines
-    //the colors specify the shade of purple that we used to do the polygon shading
+
 
     div.innerHTML += '<i style="background: ' + colors[3] + '; opacity: 0.5"></i><p>0.7% - 2.8%</p>';
     div.innerHTML += '<i style="background: ' + colors[2] + '; opacity: 0.5"></i><p>0.1% - 0.6%</p>';
     div.innerHTML += '<i style="background: ' + colors[1] + '; opacity: 0.5"></i><p>Negative or No Change</p>';
 
-    //this line provides the legend title for the airbnb colored symbols
 
-    //the next 3 lines call the airbnb icon along with its proper color
-    //notice the names of the Airbnb property types listed within the <p> tags at the end of the lines
+   
     div.innerHTML += '<i class="fas fa-fist-raised marker-color-3"></i><p>Unionization or Strike</p>';
-    // Return the Legend div containing the HTML content
+
     return div;
 };
 
-// 11. Add a legend to map
+
 legend.addTo(mymap);
 
-// 12. Add a scale bar to map
+
 L.control.scale({position: 'bottomleft'}).addTo(mymap);
 
 </script>
