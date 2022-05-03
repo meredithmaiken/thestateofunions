@@ -162,7 +162,7 @@
      center: [37.03306313157895, -105.67471754901713],
      zoom: 4.4, 
      maxZoom: 18,
-     minZoom: 0,
+     minZoom: 2,
      detectRetina: true 
  });
 
@@ -183,7 +183,7 @@ unionlocations = L.geoJson.ajax("Assets/unionizationlocations.geojson",{
 
 
   onEachFeature: function (feature, layer) {
-      layer.bindPopup(feature.properties.description);
+      layer.bindPopup(feature.properties.name);
   },
 
   pointToLayer: function(feature, latlng) {
