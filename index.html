@@ -159,11 +159,11 @@
 <script>
  
  var mymap = L.map('map', {
-     center: [37.03306313157895, -105.67471754901713], //note that we've centered the map to downtown AVL
-     zoom: 4.4, //this line adjusts the starting zoom level of the map
-     maxZoom: 18,//this line sets the maximum zoom level
-     minZoom: 0,//this line sets the minimum zoom level
-     detectRetina: true // detect whether the screen is high resolution or not.
+     center: [37.03306313157895, -105.67471754901713],
+     zoom: 4.4, 
+     maxZoom: 18,
+     minZoom: 0,
+     detectRetina: true 
  });
 
 
@@ -196,8 +196,8 @@ unionlocations = L.geoJson.ajax("Assets/unionizationlocations.geojson",{
     attribution: 'Uninoization Statistics: Department of Labor| Location of Unions and Strikes | Base Map &copy; CartoDB | Map Author: Meredith Maiken'
 }).addTo(mymap);
 
-// 6. Set function for color ramp
-colors = chroma.scale('Blues').colors(4); //we'll use 5 classes of purples
+
+colors = chroma.scale('Blues').colors(4); 
 
 
 function setColor(density) {
