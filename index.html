@@ -132,7 +132,7 @@
 
 </head>
 <body>
-<!-- Our web map and content will go here -->
+
 <div class="sidebar">
 
 <h1>The State of Unions</h1>
@@ -157,7 +157,7 @@
 
 <div id="map"></div>
 <script>
-  // 1. Create a map object.
+ 
  var mymap = L.map('map', {
      center: [37.03306313157895, -105.67471754901713], //note that we've centered the map to downtown AVL
      zoom: 4.4, //this line adjusts the starting zoom level of the map
@@ -166,34 +166,22 @@
      detectRetina: true // detect whether the screen is high resolution or not.
  });
 
- // 2. Add a base map.
+
  L.tileLayer('http://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png').addTo(mymap);
 
- // 3. Add Airbnb GeoJSON Data
-// Null variable that will hold Airbnb data
-var unionlocations = null;
-// add several extra spaces here.
-//steps 4, 5, etc. will be inserted in this line location.
-// Get GeoJSON and put it on the map when it loads
-// Make sure you have the correct directory path below
-// You can see we're also adding attribution information for our data sources
-// We will also add lines of code around this airbnb_listings object as we adjust the style of the symbols
-//Make sure and density your authorname in the attribute information
 
-// 4. build up a set of colors from colorbrewer's dark2 category
+var unionlocations = null;
+
 var colors = chroma.scale('Dark2').mode('lch').colors(3);
 
-// 5. dynamically append style classes to this page. The style classes will be used to shade the markers.
-// We can use a for loop to do this.
+
 for (i = 0; i < 3; i++) {
     $('head').append($("<style> .marker-color-" + (i + 1).toString() + " { color: " + colors[i] + "; font-size: 15px; text-shadow: 0 0 3px #ffffff;} </style>"));
 }
 
 unionlocations = L.geoJson.ajax("Assets/unionizationlocations.geojson",{
 
-  // assign a function to the onEachFeature parameter of the airbnb_listings object.
-  // Then each (point) feature will have a popup window.
-  // The content of the popup window is the value of `property_t` from the attribute table
+
   onEachFeature: function (feature, layer) {
       layer.bindPopup(feature.properties.description);
   },
