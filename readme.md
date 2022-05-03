@@ -1,4 +1,6 @@
 The State of Unions
+
+
 This web map shows the changes in the share of workforce unionized between 2018 – 2019,
 there is data available for the change between 2019-2020 but the previous years were chosen 
 because of the disruption of the coronavirus pandemic driving layoffs and many other workforce changes. 
