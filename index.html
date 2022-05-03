@@ -139,7 +139,7 @@
 
 <h2><a href="https://www.vox.com/recode/22825850/starbucks-union-first-organizing-vote-nlrb"style="text-decoration:none;color:gray"> Starbucks </a></h2>
 	<p><i>Buffalo, NY</i></p>
-<p> In December of 2021 first Starbucks votes to unionize in in Buffalo. They will begin to negotiate a contract for better pay, benefits and working conditions</p>
+<p> In December of 2021 the first Starbucks votes to unionize in in Buffalo. They will begin to negotiate a contract for better pay, benefits and working conditions.</p>
 
 <h2><a href="https://www.npr.org/2022/04/02/1090474725/what-amazons-1st-union-means-for-organized-labor"style="text-decoration:none;color:gray"> Amazon </a></h2>
 	<p><i>Staten Island, NY</i></p>
@@ -147,11 +147,11 @@
 
 <h2><a href="https://www.npr.org/2021/12/21/1066326419/kelloggs-union-members-ratify-a-new-contract-ending-a-nearly-3-month-strike"style="text-decoration:none;color:gray">Kellogs</a></h2>
 	<p><i>Michigan, Nebraska, Pennsylvania and Tennessee</i></p>
-<p>Kellog's workers strike for 11 hours after a 5 year contract expired. The strike ended in October of 2021 when unionized workers voted on a 5 year contract.</p>
+<p>Kellog's workers strike for 11 months after a 5 year contract expired. The strike ended in October of 2021 when unionized workers voted on a 5 year contract.</p>
 
 <h2><a href="https://www.bloomberg.com/news/articles/2021-10-14/deere-workers-strike-amid-labor-shortages-supply-chain-chaos"style="text-decoration:none;color:gray">John Deere</a></h2>
 	<p><i> Pennsylvania, Illinois, Iowa</i></p>
-<p> John Deere workers go on strike at midnight for a month after their contract expired. They negotiated for higher wages and better benefits as the company has seen a 38% increase in profits over the last 30 years. An agreement was reached for a 10% pay increase.</p>
+<p> John Deere workers go on strike at midnight after their contract expired for a month . They negotiated for higher wages and better benefits as the company has seen a 38% increase in profits over the last 30 years. An agreement was reached for a 10% pay increase.</p>
 
 <p><b>This map is inspired by </b><a href="https://www.bloomberg.com/news/articles/2021-10-14/deere-workers-strike-amid-labor-shortages-supply-chain-chaos"style="text-decoration:none;color:gray">"US Labor Unions are Having a Moment"</a> from <i>TIME Magazine</i></p>
 
@@ -195,7 +195,7 @@ unionlocations = L.geoJson.ajax("Assets/unionizationlocations.geojson",{
       else { id = 2;} // All other property types from attribute table
       return L.marker(latlng, {icon: L.divIcon({className: 'fas fa-fist-raised marker-color-' + (id + 1).toString() })});
   },
-    attribution: 'Uninoization Statistics: Department of Labor| Location of Unions and Strikes | Base Map &copy; CartoDB | Map Author: Meredith Maiken'
+    attribution: 'Uninoization Statistics: Department of Labor| Location of Unions and Strikes Linked to Source | Base Map &copy; CartoDB | Map Author: Meredith Maiken'
 }).addTo(mymap);
 
 
@@ -235,7 +235,7 @@ legend.onAdd = function () {
    
     var div = L.DomUtil.create('div', 'legend');
    
-    div.innerHTML += '<b>Change in Share of Workforce Unionized 2018-19 </b><br />';
+    div.innerHTML += '<b>Change in Share of Workforce Unionized 2018-19</b><br />';
 
 
     div.innerHTML += '<i style="background: ' + colors[3] + '; opacity: 0.5"></i><p>0.7% - 2.8%</p>';
